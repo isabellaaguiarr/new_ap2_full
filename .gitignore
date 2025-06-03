@@ -1,4 +1,4 @@
-# Python-generated files
+# Arquivos gerados pelo Python
 __pycache__/
 *.py[oc]
 build/
@@ -6,5 +6,40 @@ dist/
 wheels/
 *.egg-info
 
-# Virtual environments
+# Ambientes virtuais
 .venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Configurações do Spyder
+.spyderproject
+.spyproject
+
+# Configurações do Rope
+.ropeproject
+
+# Documentação do mkdocs
+/site
+
+# Cache do mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Pytype static type analyzer
+.pytype/
+
+# Depuração do Cython
+cython_debug/
+
+# Cache do Ruff
+.ruff_cache/
+
+# Arquivo de configuração do PyPI
+.pypirc
