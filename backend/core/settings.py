@@ -87,8 +87,18 @@ DATABASES = {
         'PASSWORD': '2050',
         'HOST': '127.0.0.1',  # ou o IP do servidor
         'PORT': '3306',
+    },
+    'db_imoveis': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'db_imoveis',
+        'USER': 'root',
+        'PASSWORD': '2050',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
     }
 }
+
+
 
 # DATABASES = {
 #     'default': {
