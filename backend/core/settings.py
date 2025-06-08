@@ -10,7 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -75,6 +77,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASE_ROUTERS = ['core.routers.EscolaRouter']
+# Carrega o arquivo .env
+load_dotenv()
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -82,19 +89,19 @@ DATABASES = {
     },
     'config_escola': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'db_escola',
-        'USER': 'root',
-        'PASSWORD': '2050',
-        'HOST': '127.0.0.1',  # ou o IP do servidor
-        'PORT': '3306',
+        'NAME': os.getenv('DB_ESOLA_NAME'),
+        'USER': os.getenv('DB_ESOLA_USER'),
+        'PASSWORD': os.getenv('DB_ESOLA_PASSWORD'),
+        'HOST': os.getenv('DB_ESOLA_HOST'),
+        'PORT': os.getenv('DB_ESOLA_PORT'),
     },
-    'db_imoveis': {
+    'config_scraping': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'db_imoveis',
-        'USER': 'root',
-        'PASSWORD': '2050',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'NAME': os.getenv('DB_SCRAPING_NAME'),
+        'USER': os.getenv('DB_SCRAPING_USER'),
+        'PASSWORD': os.getenv('DB_SCRAPING_PASSWORD'),
+        'HOST': os.getenv('DB_SCRAPING_HOST'),
+        'PORT': os.getenv('DB_SCRAPING_PORT'),
     }
 }
 
