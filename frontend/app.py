@@ -5,7 +5,7 @@ import pandas as pd
 API_URL = "http://localhost:8000/api/administracao/alunos"
 SCRAPING_URL = "http://127.0.0.1:8000/scrape/"
 
-st.title("Sistema de Gerenciamento")
+st.title("Sistema de Gerenciamento do projeto")
 
 # Sidebar para navegação entre as seções
 opcao = st.sidebar.selectbox("Menu", [
