@@ -20,7 +20,7 @@ Este projeto é composto por duas partes principais:
 
 ### Executar projeto
 1. Clone o repositório:
-   git clone https://github.com/seu-usuario/seu-projeto.git
+   git clone https://github.com/isabellaaguiarr/new_ap2_full.git
 
 2. Acesse a pasta do projeto:
    cd nome-da-pasta
