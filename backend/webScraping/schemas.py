@@ -2,20 +2,19 @@ from ninja import Schema
 from typing import Optional
 from decimal import Decimal
 
-
 # -------- TbImoveis --------
 class TbImoveisSchema(Schema):
     id: int
-    titulo: Optional[str] = None
-    preco: Optional[Decimal] = None
+    localizacao: Optional[str] = None
     metragem: Optional[Decimal] = None
-    quarto: Optional[int] = None
-    descricao: Optional[str] = None
+    preco: Optional[Decimal] = None
+    quartos: Optional[int] = None
+    decricao: Optional[str] = None
 
 
 class TbImoveisSchemaIn(Schema):
-    titulo: Optional[str] = None
-    preco: Optional[Decimal] = None
+    localizacao: Optional[str] = None
     metragem: Optional[Decimal] = None
-    quarto: Optional[int] = None
-    descricao: Optional[str] = None
+    preco: Optional[Decimal] = None
+    quartos: Optional[int] = None
+    decricao: Optional[str] = None

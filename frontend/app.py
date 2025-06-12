@@ -1,13 +1,15 @@
 import streamlit as st
 import requests
 import pandas as pd
+import time
 
 API_URL = "http://localhost:8000/api/administracao/alunos"
 SCRAPING_URL = "http://127.0.0.1:8000/scrape/"
+DADOS_URL = "http://127.0.0.1:8000/obter_dados/"
 
-st.title("Sistema de Gerenciamento do projeto")
+st.title("Sistema de Gerenciamento")
 
-# Sidebar para navegação entre as seções
+# Barra lateral 
 opcao = st.sidebar.selectbox("Menu", [
     "Listar Alunos",
     "Buscar Aluno por ID",
@@ -17,6 +19,7 @@ opcao = st.sidebar.selectbox("Menu", [
     "Iniciar Web Scraping"
 ])
 
+# Listar Alunos
 if opcao == "Listar Alunos":
     st.header("Lista de Alunos")
     if st.button("Carregar alunos"):
@@ -24,20 +27,25 @@ if opcao == "Listar Alunos":
         if response.status_code == 200:
             alunos = response.json()
             df_alunos = pd.DataFrame(alunos)
-            st.dataframe(df_alunos, height=400, width=1000)  # Ajuste de tamanho
+            st.dataframe(df_alunos, height=400, width=1000)  #
         else:
             st.error("Erro ao buscar alunos. Verifique a API.")
 
+# Buscar Alunos
 elif opcao == "Buscar Aluno por ID":
     st.header("Buscar Aluno por ID")
     aluno_id = st.number_input("ID do aluno", min_value=1, step=1)
     if st.button("Buscar"):
         response = requests.get(f"{API_URL}/{aluno_id}")
         if response.status_code == 200:
-            st.json(response.json())
+            aluno = response.json()
+            # Convertendo para DataFrame
+            df_aluno = pd.DataFrame([aluno])
+            st.dataframe(df_aluno)
         else:
             st.error("Aluno não encontrado.")
 
+# Cadastrar Alunos
 elif opcao == "Cadastrar Aluno":
     st.header("Cadastrar Aluno")
     with st.form("form_cadastro"):
@@ -58,6 +66,7 @@ elif opcao == "Cadastrar Aluno":
             else:
                 st.error("Erro ao cadastrar aluno.")
 
+# Atualizar Alunos
 elif opcao == "Atualizar Aluno":
     st.header("Atualizar Aluno")
     with st.form("form_atualizar"):
@@ -79,6 +88,7 @@ elif opcao == "Atualizar Aluno":
             else:
                 st.error("Erro ao atualizar aluno.")
 
+# Deletar Alunos
 elif opcao == "Deletar Aluno":
     st.header("Deletar Aluno")
     id_delete = st.number_input("ID do aluno", min_value=1, step=1, key="delete")
@@ -89,6 +99,7 @@ elif opcao == "Deletar Aluno":
         else:
             st.error("Erro ao deletar aluno.")
 
+# WebScraping 
 elif opcao == "Iniciar Web Scraping":
     st.header("Iniciar Web Scraping")
     if st.button("Executar Scraping"):
@@ -96,19 +107,18 @@ elif opcao == "Iniciar Web Scraping":
             response = requests.get(SCRAPING_URL)
 
         if response.status_code == 200:
-            json_data = response.json()
-            st.success("Scraping concluído com sucesso.")
+            st.success("Scraping iniciado com sucesso! Aguardando a coleta de dados...")
 
-            # Exibir os dados coletados com ajustes para melhor visualização
-            if "dados" in json_data and json_data["dados"]:
-                df_imoveis = pd.DataFrame(json_data["dados"])
-                st.dataframe(df_imoveis.style.set_properties(**{
-                    'max-width': '500px',   # Define largura máxima
-                    'white-space': 'normal' # Permite quebra de linha
-                }), height=500, width=1000)
+            # Aguarda um tempo para garantir que os dados sejam processados no backend
+            time.sleep(10)
+
+            # Faz a requisição para obter os dados coletados após o scraping
+            response_dados = requests.get(DADOS_URL)
+            if response_dados.status_code == 200:
+                json_data = response_dados.json()
+                st.success("Dados coletados com sucesso!")
+
             else:
-                st.warning("Nenhum dado foi coletado. Verifique os filtros de busca.")
-
+                st.error(f"Erro ao buscar os dados coletados: Código {response_dados.status_code}")
         else:
-            st.error(f"Erro ao chamar a API: Código {response.status_code}")
-
+            st.error(f"Erro ao iniciar o scraping: Código {response.status_code}")

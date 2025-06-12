@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class TbAlunos(models.Model):
     nome_aluno = models.CharField(max_length=255)
     email = models.CharField(max_length=100, blank=True, null=True)
