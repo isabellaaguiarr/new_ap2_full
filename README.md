@@ -36,8 +36,7 @@ Este projeto é composto por duas partes principais:
    python manage.py runserver 
    streamlit run app.py
 
-### Colaboradores
-## 👥 Colaboradores
+##  Colaboradores
 
 | Nome                     | GitHub                                      |
 |--------------------------|---------------------------------------------|
